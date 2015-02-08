@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" type="text/css" href="./css/layout.css">
+
+</head>
+
+<body>
+
+	<div id="header">
+		<h1>Blog Index</h1>
+	</div>
+
+	<div id="nav">
+		<table>
+			<tr>
+				<td><a href='./jag/add_blog.jag'>Add new entry</a>
+				</td>
+			</tr>
+			<tr>
+				<td><a href='./jag/delete_blog.jag'>Delete entry</a>
+				</td>
+			</tr>
+			<tr>
+				<td><a href='./jag/update_blog.jag'>Update entry</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</br>
+	</br>
+	<%
+	include ("./jag/view_blogs.jag");
+	%>
+</body>
+<div id="footer">Copyright myindex.com</div>
+</html>
+
+

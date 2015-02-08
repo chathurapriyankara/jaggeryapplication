@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+<%var json = require ("../json/blogs.json");%>
+</head>
+<body>
+		<table align="center" cellpadding="10px">
+			<tr>
+				<th style="background-color: gray">Name</th>
+				<th style="background-color: gray">Type</th>
+				<th style="background-color: gray">Url</th>
+			</tr>
+			<%for(var i in json.blogs){%>
+			<tr style="">
+				<td style="width: 400px;background-color: #F0F0F0;"><%=json.blogs[i].name%>
+				</td>
+				<td style="width: 400px;background-color: #F0F0F0;"><%=json.blogs[i].type%>
+				</td>
+				<td style="width: 700px;background-color: #F0F0F0;"><a href="<%=json.blogs[i].url%> "><%=json.blogs[i].url%> </a>
+				</td>
+			</tr>
+			<%}
+			%>
+		</table>
+</body>
+</html>

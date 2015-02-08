@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+<link rel="stylesheet" type="test/css" href="../css/layout.css">
+
+</head>
+<body>
+	<div id="header">
+		<h1>Blog Index</h1>
+	</div>
+
+	<div id="nav">
+		<table>
+			<tr>
+				<td><a href='../index.jag'>Home</a>
+				</td>
+			</tr>
+			<tr>
+				<td><a href='./delete_blog.jag'>Delete entry</a>
+				</td>
+			</tr>
+			<tr>
+				<td><a href='./update_blog.jag'>Update entry</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<form method="post">
+
+		</br>
+		</br>
+		<table align='center' cellpadding="10px">
+		<tr>
+				<td><h3>Add Entry</h3>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Blog name :</td>
+				<td><input type="text" name="b_name" required>
+				
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Blog type :</td>
+				<td><input type="text" name="b_type" required>
+				
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Url :</td>
+				<td><input type="text" name="b_url" required>
+				
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="right"><input type="submit" value="Add Entry"
+					align='center' /></td>
+			</tr>
+		</table>
+
+
+	</form>
+
+	<div id="index">
+		<%
+		if(request.getMethod()=='POST'){
+		var name = request.getParameter("b_name");
+		var type = request.getParameter("b_type");
+		var url = request.getParameter("b_url");
+
+		//create new blog object
+		var newBlogentry = {
+"name":name,"url":url,"type":type};
+
+		//add product details
+		var json = require ("../json/blogs.json");
+		json.blogs.push(newBlogentry);
+
+		var file = new File("../json/blogs.json");
+		file.open("w");
+		file.write(json);
+		file.close();
+		response.status = 200;
+	}
+
+	%>
+		</div>
+		</br> </br>
+		<%
+		include ("view_blogs.jag");
+		%>
+
+
+</body>
+<div id="footer">Copyright myindex.com</div>
+</html>

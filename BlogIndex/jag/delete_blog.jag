@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+<link rel="stylesheet" type="test/css" href="../css/layout.css">
+</head>
+<body>
+	<div id="header">
+		<h1>Blog Index</h1>
+	</div>
+
+	<div id="nav">
+		<table>
+			<tr>
+				<td><a href='../index.jag'>Home</a></td>
+			</tr>
+			<tr>
+				<td><a href='./add_blog.jag'>Add new entry</a></td>
+			</tr>
+			<tr>
+				<td><a href='./update_blog.jag'>Update entry</a></td>
+			</tr>
+		</table>
+	</div>
+	<form method="post" >
+
+		</br> </br>
+		<table align="center" cellpadding="10">
+		<tr>
+				<td><h3>Delete Entry</h3>
+				</td>
+			</tr>
+			<tr>
+				<td>Enter blog Url to delete</td>
+				<td><input type="text" name="b_url" required>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="right"><input type="submit" value="Delete Entry">
+				</td>
+			</tr>
+		</table>
+
+	</form>
+	<%
+	var json = require ("../json/blogs.json");
+	var isDelete;
+	if(request.getMethod()=="POST"){
+		var index;
+		var url = request.getParameter("b_url");
+		for(var i in json.blogs){
+		if(url == json.blogs[i].url){
+			json.blogs.splice(i,1);
+			isDelete = true;
+		}
+	}
+	if(isDelete){
+	var file = new File("../json/blogs.json");
+	file.open("w");
+	file.write(json);
+	file.close();
+	response.status = 200;
+	}else{
+		print("<script>alert('Blog url not found!!!');</script>");
+	}
+
+	}
+	%>
+	</br>
+	</br>
+	<%
+	include ("view_blogs.jag");
+	%>
+</body>
+<div id="footer">Copyright myindex.com</div>
+</html>

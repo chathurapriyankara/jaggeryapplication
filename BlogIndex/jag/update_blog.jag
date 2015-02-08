@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+<title>Update</title>
+<link rel="stylesheet" type="test/css" href="../css/layout.css">
+
+</head>
+<body>
+	<div id="header">
+		<h1>Blog Index</h1>
+	</div>
+	<div id="nav">
+		<table>
+
+			<tr>
+				<td><a href='../index.jag'>Home</a>
+				</td>
+			</tr>
+			<tr>
+				<td><a href='./add_blog.jag'>Add new entry</a>
+				</td>
+			</tr>
+			<tr>
+				<td><a href='./delete_blog.jag'>Delete entry</a>
+			
+			</tr>
+		</table>
+	</div>
+	<form method="post">
+		</br>
+		</br>
+		<table align="center" cellpadding="10px">
+			<tr>
+				<td><h3>Update Entry</h3>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Blog Url to update :</td>
+				<td><input type="text" name="b_url" required>
+				
+				</td>
+			</tr>
+			<tr>
+				<td></br>
+					<h3>New Details</h3>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Blog name :</td>
+				<td><input type="text" name="b_name" required>
+				
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Blog type :</td>
+				<td><input type="text" name="b_type" required>
+				
+				</td>
+			</tr>
+			<tr>
+				<td align="right">Blog url :</td>
+				<td><input type="text" name="b_nurl" required>
+				
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td align="right"><input type="submit" value="Update Entry">
+				
+				</td>
+			</tr>
+		</table>
+
+	</form>
+	<%
+	if(request.getMethod()=="POST"){
+		var index;
+		var url = request.getParameter("b_url");
+		var json = require ("../json/blogs.json");
+		var isUpdate;
+		for(var i in json.blogs){
+		if(url == json.blogs[i].url){
+		//new data
+		var name = request.getParameter("b_name");
+		var type = request.getParameter("b_type");
+		var new_url = request.getParameter("b_nurl");
+		//create new object
+		var newBlogElement = {
+"name":name,"url":new_url,"type":type};
+		//splice new object to i the element
+		json.blogs.splice(i,1,newBlogElement);
+
+		isUpdate = true;
+		}
+	}
+	if(isUpdate){
+	var file = new File("../json/blogs.json");
+	file.open("w");
+	file.write(json);
+	file.close();
+	response.status = 200;
+	}else{
+	print("<script>alert('Blog url not found!!!');</script>");
+
+	}
+
+	}
+	%>
+	</br>
+	</br>
+	<%
+	include ("view_blogs.jag");
+	%>
+</body>
+<div id="footer">Copyright myindex.com</div>
+</html>
